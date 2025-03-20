@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import bgImage from '../components/Assets/backgroundImage.png'
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 import BackButton from '../components/BackButton';
+
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -45,7 +46,6 @@ export default function LoginPage() {
                 }
             })
             .catch((error) => {
-                // console.log(`Error: ${error}`)
                 if (error.response.status === 400) {
                     toast.error('Username or Email is required');
                     setError('Username or Email is required');
@@ -121,13 +121,8 @@ export default function LoginPage() {
                                 </fieldset>
                                 <div className="flex flex-col gap-2 justify-center items-center mt-1">
                                     <button className='w-full max-w-[250px] md:max-w-[280px] h-[45px] border border-stdBlue rounded-xl font-semibold flex items-center justify-center gap-2 bg-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out'>
-                                        <i className="fa-brands fa-google text-xl text-GoogleIcon"></i>
+                                        <FaGoogle className="text-xl text-GoogleIcon" />
                                         <span className="text-gray-700">Login with Google</span>
-                                    </button>
-
-                                    <button className='w-full max-w-[250px] md:max-w-[280px] h-[45px] border border-stdBlue rounded-xl font-semibold flex items-center justify-center gap-2 bg-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out'>
-                                        <i className="fa-brands fa-apple text-2xl text-black"></i>
-                                        <span className="text-gray-700">Login with Apple</span>
                                     </button>
                                 </div>
                             </form>
