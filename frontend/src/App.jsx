@@ -30,7 +30,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './Pages/AdminDashboard';
 import Location from './Pages/GetLocation.jsx';
 import Feedback from './components/Feedback';
-
+import ResumeExtract from './Pages/ResumeExtract.jsx';
 function App() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -111,6 +111,7 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+                <Route path='/resume' element={<ResumeExtract/>}/>
             </Routes>
 
             <div className="fixed bottom-6 right-6 z-50">
