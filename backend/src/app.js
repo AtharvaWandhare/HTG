@@ -2,7 +2,7 @@ console.log('App.js is loaded');
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import resumeRoutes from './routes/resumeRoutes.js';
 import { app } from './Socket/socket.js';
 
 // const app = express();
@@ -36,4 +36,5 @@ import jobRoutes from './routes/jobRoutes.js';
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/service-providers", serviceProviderRouter);
 app.use('/api/v1/users', jobRoutes);
+app.use('/api/resume', resumeRoutes);
 export default app;
