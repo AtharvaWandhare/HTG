@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import bgImage from '../components/Assets/backgroundImage.png';
 import BackButton from '../components/BackButton';
+import { motion } from "framer-motion";
 
 export default function WorkerSignUp() {
     const [formData, setFormData] = useState({
@@ -63,12 +64,12 @@ export default function WorkerSignUp() {
 
     // Service categories matching your landing page
     const serviceCategories = [
-        { id: 'repairs', name: 'Home Repairs', icon: '🔧' },
-        { id: 'moving', name: 'Moving', icon: '🚚' },
-        { id: 'electrical', name: 'Electrical', icon: '⚡' },
-        { id: 'cleaning', name: 'Cleaning', icon: '🧹' },
-        { id: 'painting', name: 'Painting', icon: '🖌️' },
-        { id: 'plumbing', name: 'Plumbing', icon: '🚿' }
+        { id: 'web-dev', name: 'Website Development', icon: '💻' },
+        { id: 'app-dev', name: 'Mobile App Development', icon: '📱' },
+        { id: 'graphic-design', name: 'Graphic Design', icon: '🎨' },
+        { id: 'digital-marketing', name: 'Digital Marketing', icon: '📢' },
+        { id: 'content-writing', name: 'Content Writing & Copywriting', icon: '✍️' },
+        { id: 'seo', name: 'SEO & Website Optimization', icon: '🔍' }
     ];
 
     return (
@@ -89,11 +90,26 @@ export default function WorkerSignUp() {
                     <div className="bg-white shadow-xl rounded-2xl px-6 py-6">
                         {/* Header */}
                         <div className="text-center mb-6">
-                            <h1 className="text-3xl font-bold text-stdBlue">
-                                Join <span className="text-color1">SewaSetu</span>
-                            </h1>
-                            <p className="text-gray-600 mt-1">Register as a service professional</p>
-                        </div>
+  <motion.h1
+    className="text-3xl font-bold text-stdBlue relative inline-block"
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+  >
+    Join{" "}
+    <span className="text-color1 animate-gradient bg-gradient-to-r from-color1 via-stdBlue to-color1 bg-clip-text text-transparent">
+      Gig-Fusion
+    </span>
+  </motion.h1>
+  <motion.p
+    className="text-stdBlue font-semibold mt-1"
+    initial={{ opacity: 0, y: 5 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.2, duration: 0.5 }}
+  >
+    Register as a Gig expert
+  </motion.p>
+</div>
                         
                         {/* Registration Form */}
                         <form onSubmit={handleSubmit}>
@@ -269,42 +285,46 @@ export default function WorkerSignUp() {
                                     <div>
                                         <h2 className="text-lg font-semibold text-stdBlue border-b border-gray-200 pb-1 mb-3">Service Category</h2>
                                         
-                                        <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                                            <p className="text-sm text-gray-700 mb-3">Select the primary service you offer:</p>
-                                            
-                                            <div className="grid grid-cols-3 gap-3">
-                                                {serviceCategories.map(category => (
-                                                    <div 
-                                                        key={category.id}
-                                                        onClick={() => handleServiceSelect(category.name)}
-                                                        className={`flex flex-col items-center justify-center p-3 rounded-lg cursor-pointer transition-all ${
-                                                            formData.serviceCategory === category.name 
-                                                            ? 'bg-white border-2 border-stdBlue shadow-md' 
-                                                            : 'bg-white/70 border-2 border-gray-200 hover:bg-white'
-                                                        }`}
-                                                    >
-                                                        <span className="text-2xl mb-1">{category.icon}</span>
-                                                        <span className="text-xs text-center font-medium">{category.name}</span>
-                                                    </div>
-                                                ))}
+                                            <div className="bg-blue-50 rounded-lg p-4 mb-4">
+                                                <p className="text-sm text-gray-700 mb-3">Select the primary service you offer:</p>
+                                                
+                                                <div className="grid grid-cols-3 gap-3">
+                                                    {serviceCategories.map(category => (
+                                                        <div 
+                                                            key={category.id}
+                                                            onClick={() => handleServiceSelect(category.name)}
+                                                            className={`relative flex flex-col items-center justify-center p-3 rounded-lg cursor-pointer transition-all overflow-hidden 
+                                                                ${
+                                                                    formData.serviceCategory === category.name 
+                                                                    ? 'bg-white border-2 border-stdBlue shadow-md' 
+                                                                    : 'bg-white/70 border-2 border-gray-200 hover:bg-white'
+                                                                } 
+                                                                hover:scale-105 hover:shadow-lg duration-300 ease-in-out before:absolute before:inset-0 before:rounded-lg 
+                                                                before:border-2 before:border-transparent before:hover:border-blue-500 before:hover:border-opacity-50 
+                                                                before:animate-border-gradient`}
+                                                        >
+                                                            <span className="text-2xl mb-1">{category.icon}</span>
+                                                            <span className="text-xs text-center font-medium">{category.name}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
                                         
                                         {/* Company Benefits */}
                                         <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-lg p-4 mb-4">
-                                            <h3 className="font-medium text-stdBlue mb-2">Why Join SewaSetu?</h3>
+                                            <h3 className="font-medium text-stdBlue mb-2">Why Join Gig-Fusion?</h3>
                                             <ul className="space-y-2 text-sm">
                                                 <li className="flex items-start">
                                                     <span className="text-color1 mr-2">✓</span>
-                                                    <span>Connect with customers in your local area</span>
+                                                    <span> Get Hired – Connect with clients easily.</span>
                                                 </li>
                                                 <li className="flex items-start">
                                                     <span className="text-color1 mr-2">✓</span>
-                                                    <span>Manage your schedule and control your availability</span>
+                                                    <span>Work on Your Terms – Set your own schedule</span>
                                                 </li>
                                                 <li className="flex items-start">
                                                     <span className="text-color1 mr-2">✓</span>
-                                                    <span>Build your business reputation with customer reviews</span>
+                                                    <span>Build your business reputation with client reviews</span>
                                                 </li>
                                                 <li className="flex items-start">
                                                     <span className="text-color1 mr-2">✓</span>
@@ -329,11 +349,13 @@ export default function WorkerSignUp() {
                                             </div>
                                             
                                             <button
-                                                type="submit"
-                                                className="w-full h-11 rounded-full font-bold text-white bg-gradient-to-r from-color1 to-stdBlue shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-                                            >
-                                                Register as Professional
-                                            </button>
+    type="submit"
+    className="w-full h-11 rounded-full font-bold text-white bg-gradient-to-r from-color1 to-stdBlue shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 relative overflow-hidden"
+>
+    <span className="absolute inset-0 bg-white opacity-10 transition-opacity duration-300 group-hover:opacity-20"></span>
+    <span className="relative z-10">Register as Gig Expert</span>
+</button>
+
                                             
                                             <div className="text-center">
                                                 <p className="text-sm text-gray-600">

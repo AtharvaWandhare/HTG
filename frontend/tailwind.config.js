@@ -65,7 +65,7 @@ export default {
         shimmer: 'shimmer 1.5s linear infinite',
         blink: 'blink 1s step-end infinite',
         'gradient-x': 'gradient-x 15s ease infinite',
-        'float': 'float 3s ease-in-out infinite',
+        'float': 'float 3s ease-in-out infinite'
       },
       keyframes: {
         fadeIn: {

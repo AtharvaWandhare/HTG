@@ -1,100 +1,71 @@
-import { FiMail, FiPhone, FiYoutube, FiHome, FiInfo, FiTool, FiLogIn } from 'react-icons/fi';
+import { FiMail, FiPhone, FiYoutube, FiHome, FiInfo, FiTool, FiLogIn, FiLinkedin, FiFacebook, FiTwitter } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import SevaSetuLogo from "../components/Assets/SevaSetuLogo.png";
 
 function Footer() {
-  const quickLinks = [
-    { icon: <FiHome size={18} />, text: "Home", path: "/" },
-    { icon: <FiInfo size={18} />, text: "About us", path: "/about" },
-    { icon: <FiTool size={18} />, text: "Services", path: "/services" },
-    { icon: <FiLogIn size={18} />, text: "Login", path: "/login" },
-  ];
-
-  const contactInfo = [
-    { icon: <FiMail size={18} />, text: "sewasetu@gmail.com" },
-    { icon: <FiPhone size={18} />, text: "+91 1800 130 200" },
-    { icon: <FiYoutube size={18} />, text: "www.SewaSetu.youtube.com" },
-  ];
-
   return (
-    <footer className="bg-gradient-to-r from-stdBlue to-blue-900 py-8 md:py-12 mt-10">
-      <div className="max-w-6xl mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {/* Brand Section - Enhanced with interactive effects */}
-          <div className="flex flex-col items-center md:items-start space-y-4">
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-color1 to-stdBlue opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-              <img
-                src={SevaSetuLogo}
-                alt="SewaSetu Logo"
-                className="relative h-[80px] md:h-[100px] w-auto object-contain rounded-2xl 
-                         bg-white p-3 shadow-lg 
-                         transform transition-all duration-300 ease-in-out
-                         hover:scale-105 hover:rotate-2 
-                         cursor-pointer
-                         hover:shadow-xl hover:shadow-color1/20
-                         group-hover:translate-y-[-5px]"
-              />
-            </div>
-            <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg 
-                          transform transition-all duration-300 
-                          hover:scale-105 hover:bg-white
-                          group cursor-pointer">
-              <p className="text-color1 text-sm md:text-base font-semibold text-center
-                          group-hover:text-stdBlue transition-colors duration-300">
-                Connecting Skills with Opportunities
-              </p>
-            </div>
-          </div>
-
-          {/* Quick Links Section */}
-          <div className="text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
-              Quick Links
-            </h2>
-            <nav className="flex flex-col space-y-2">
-              {quickLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  to={link.path}
-                  className="flex items-center gap-2 text-gray-200 hover:text-color1 transition-colors duration-200 justify-center md:justify-start group"
-                >
-                  <span className="transform group-hover:scale-110 transition-transform duration-200">
-                    {link.icon}
-                  </span>
-                  <span className="text-base md:text-lg font-medium">{link.text}</span>
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Contact Section */}
-          <div className="text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
-              Contact us
-            </h2>
-            <div className="flex flex-col space-y-3">
-              {contactInfo.map((info, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 text-gray-200 justify-center md:justify-start group"
-                >
-                  <span className="transform group-hover:scale-110 transition-transform duration-200 text-color1">
-                    {info.icon}
-                  </span>
-                  <span className="text-base md:text-lg font-medium">{info.text}</span>
-                </div>
-              ))}
-            </div>
+    <footer className="bg-gray-600 text-white py-10 mt-10">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Brand Section */}
+        <div className="space-y-4 text-center md:text-left">
+          <div className="flex flex-col items-center md:items-start">
+            <img src={SevaSetuLogo} alt="SewaSetu Logo" className="h-20 w-auto object-contain bg-white p-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-300" />
+            <p className="text-lg font-semibold mt-3 text-gray-300">Connecting Skills with Opportunities</p>
           </div>
         </div>
 
-        {/* Copyright Section */}
-        <div className="mt-8 pt-8 border-t border-gray-700">
-          <p className="text-center text-gray-400 text-sm">
-            © {new Date().getFullYear()} SewaSetu. All rights reserved.
-          </p>
+        {/* Quick Links */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Quick Links</h2>
+          <nav className="flex flex-col space-y-2">
+            {[
+              { icon: <FiHome />, text: "Home", path: "/" },
+              { icon: <FiInfo />, text: "About us", path: "/about" },
+              { icon: <FiTool />, text: "Services", path: "/services" },
+              { icon: <FiLogIn />, text: "Login", path: "/login" },
+            ].map((link, index) => (
+              <Link key={index} to={link.path} className="flex items-center space-x-2 text-gray-300 hover:text-white transition">
+                {link.icon}<span>{link.text}</span>
+              </Link>
+            ))}
+          </nav>
         </div>
+
+        {/* Contact Section */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Contact Us</h2>
+          <div className="space-y-3">
+            {[
+              { icon: <FiMail />, text: "sewasetu@gmail.com" },
+              { icon: <FiPhone />, text: "+91 1800 130 200" },
+              { icon: <FiYoutube />, text: "www.SewaSetu.youtube.com" },
+            ].map((info, index) => (
+              <div key={index} className="flex items-center space-x-3 text-gray-300 hover:text-white transition">
+                {info.icon}<span>{info.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Newsletter Section */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+          <form className="flex flex-col space-y-3">
+            <input type="email" placeholder="Enter your email" className="p-2 rounded-lg text-gray-900 focus:outline-none" />
+            <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg transition">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      {/* Footer Bottom Section */}
+      <div className="mt-8 border-t border-gray-600 pt-6 text-center text-gray-400 text-sm">
+        <div className="flex justify-center space-x-4 mb-4">
+          <a href="#" className="hover:text-white transition"><FiLinkedin size={20} /></a>
+          <a href="#" className="hover:text-white transition"><FiFacebook size={20} /></a>
+          <a href="#" className="hover:text-white transition"><FiTwitter size={20} /></a>
+        </div>
+        <p>© {new Date().getFullYear()} SewaSetu. All rights reserved.</p>
+        <p className="mt-2"><Link to="/privacy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms" className="hover:underline">Terms of Service</Link></p>
       </div>
     </footer>
   );

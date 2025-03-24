@@ -2,6 +2,12 @@ console.log('App.js is loaded');
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv"
+
+dotenv.config({
+    path:"./.env"
+})
+
 
 import { app } from './Socket/socket.js';
 
