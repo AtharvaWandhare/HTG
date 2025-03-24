@@ -36,14 +36,7 @@ import resumeRoutes from './routes/resumeRoutes.js';
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/service-providers", serviceProviderRouter);
 app.use('/api/v1/users', jobRoutes);
-app.use("/api/resume", (req, res, next) => {
-  console.log(`Resume API request: ${req.method} ${req.url}`);
-  console.log('Headers:', req.headers);
-  console.log('Body:', req.body);
-  console.log('Files:', req.files || req.file);
-  next();
-}, resumeRoutes);
-
+app.use('/api', resumeRoutes); // Mount at /api
 // Add a global error handler that's more detailed
 app.use((err, req, res, next) => {
   console.error('API Error:', err);

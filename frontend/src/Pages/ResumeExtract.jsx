@@ -1,9 +1,10 @@
+// frontend/src/Pages/ResumeExtract.jsx
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FiUploadCloud } from 'react-icons/fi';
 import axios from 'axios';
 
-const ResumeAnalyzer = () => {
+const ResumeExtract = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [file, setFile] = useState(null);
@@ -11,8 +12,7 @@ const ResumeAnalyzer = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      'application/pdf': ['.pdf'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
+      'application/pdf': ['.pdf']
     },
     multiple: false,
     onDrop: acceptedFiles => setFile(acceptedFiles[0])
@@ -20,52 +20,30 @@ const ResumeAnalyzer = () => {
 
   const handleAnalysis = async () => {
     if (!file) return;
-    
+
     setIsProcessing(true);
     setError('');
-    
+
     try {
       const formData = new FormData();
-      formData.append('resume', file);
+      formData.append('file', file);
 
-      console.log('Sending resume for analysis:', file.name, file.type);
-      
-      // Log the formData to console for debugging
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value instanceof File ? value.name : value}`);
-      }
-      
-      const response = await axios.post('http://localhost:8000/api/resume/analyze', formData, {
+      const response = await axios.post('http://localhost:8000/analyze-resume', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
-        },
-        timeout: 60000 // Increased timeout for large files
+        }
       });
 
-      console.log('Resume analysis response:', response.data);
-
-      if (response.data?.success) {
-        const resumeData = response.data.data;
+      if (response.data.success) {
         setAnalysisResult({
-          skills: resumeData.skills || [],
-          experience: resumeData.experience || [],
-          contact: resumeData.contact || { email: '', phone: '' }
+          skills: response.data.data.skills || [],
+          experience: response.data.data.experience || []
         });
       } else {
-        setError('Analysis failed: ' + (response.data?.error || 'Unknown error'));
+        setError('Failed to analyze resume: ' + (response.data.error || 'Unknown error'));
       }
     } catch (err) {
-      console.error('Error analyzing resume:', err);
-      
-      if (err.code === 'ERR_NETWORK') {
-        setError(`Network error: Could not connect to the server. Please check if the backend is running.`);
-      } else if (err.code === 'ECONNABORTED') {
-        setError(`Request timed out. The file might be too large or the server is busy.`);
-      } else if (err.response) {
-        setError(`Server error ${err.response.status}: ${err.response.data?.error || err.message}`);
-      } else {
-        setError(`Error: ${err.message}`);
-      }
+      setError(err.response?.data?.error || 'Error analyzing resume');
     } finally {
       setIsProcessing(false);
     }
@@ -74,24 +52,19 @@ const ResumeAnalyzer = () => {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <div className="max-w-4xl mx-auto px-4 py-12">
-        {/* Error Message */}
         {error && (
           <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
             {error}
           </div>
         )}
-
-        {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold uppercase text-gray-900 mb-4 tracking-tighter">
-            Find the Best Tradespeople
+            Resume Analyzer
           </h1>
           <p className="text-gray-600 text-lg mb-8">
-            Connecting you with skilled tradespeople near you!
+            Upload your resume to extract skills and experience!
           </p>
         </div>
-
-        {/* Upload Section */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
           <div
             {...getRootProps()}
@@ -104,10 +77,9 @@ const ResumeAnalyzer = () => {
               {file ? file.name : 'Drag & Drop Your Resume Here'}
             </p>
             <p className="text-gray-500 text-sm mt-2">
-              Supported formats: PDF, DOCX
+              Supported format: PDF
             </p>
           </div>
-
           <button
             onClick={handleAnalysis}
             disabled={!file || isProcessing}
@@ -121,23 +93,13 @@ const ResumeAnalyzer = () => {
             {isProcessing ? 'Analyzing...' : 'Analyze Resume'}
           </button>
         </div>
-
-        {/* Results Section */}
         {analysisResult && (
           <div className="bg-white rounded-xl shadow-lg p-8">
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Experience Excellence With Our
+                Your Resume Details
               </h2>
-              <div className="flex items-center gap-4 mb-6">
-                <span className="text-orange-600 font-bold">Home Repairs</span>
-                <span className="text-gray-300">|</span>
-                <span className="text-gray-600">Moving</span>
-                <span className="text-gray-600">Electrical</span>
-              </div>
             </div>
-
-            {/* Skills Section */}
             {analysisResult.skills.length > 0 && (
               <div>
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Skills</h3>
@@ -153,8 +115,6 @@ const ResumeAnalyzer = () => {
                 </div>
               </div>
             )}
-
-            {/* Experience Section */}
             {analysisResult.experience.length > 0 && (
               <div className="mt-8 pt-6 border-t border-gray-100">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Work Experience</h3>
@@ -174,4 +134,4 @@ const ResumeAnalyzer = () => {
   );
 };
 
-export default ResumeAnalyzer;
+export default ResumeExtract;
