@@ -31,6 +31,7 @@ import AdminDashboard from './Pages/AdminDashboard';
 import Location from './Pages/GetLocation.jsx';
 import Feedback from './components/Feedback';
 import ResumeExtract from './Pages/ResumeExtract.jsx';
+import Dashboard from './Pages/clientUser/Dashboard.jsx';
 function App() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -92,7 +93,7 @@ function App() {
                 <Route path="/chat" element={<ChatPage />} />
                 <Route path="/my-bookings" element={<MyBookings />} />
                 <Route path="/:id/profile" element={<ServiceProviderProfile />} />
-                <Route path="/dashboard" element={<LandingPageSP />} />
+                {/* <Route path="/dashboard" element={<LandingPageSP />} /> */}
                 <Route path="/dashboard-admin" element={<LandingPageAdmin />} />
                 <Route path="/account/:id" element={<EditServiceProfile />} />
                 <Route path="/book/:id" element={<BookJob />} />
@@ -111,6 +112,7 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+                <Route path='/dashboard' element={<Dashboard/>}/>
                 <Route path='/resume' element={<ResumeExtract/>}/>
             </Routes>
 
