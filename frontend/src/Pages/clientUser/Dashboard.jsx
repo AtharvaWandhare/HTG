@@ -3,10 +3,9 @@ import { Transition } from '@headlessui/react';
 import { FaHome, FaProjectDiagram, FaUserFriends, FaWallet, FaUser, FaTimes, FaPlus, FaEnvelope, FaMapMarkerAlt, FaPhone, FaEdit } from "react-icons/fa";
 
 const SidebarItem = ({ icon, text, active, onClick }) => (
-  <li 
-    className={`flex items-center space-x-3 p-2 rounded-lg cursor-pointer transition-colors ${
-      active ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-200'
-    }`}
+  <li
+    className={`flex items-center space-x-3 p-2 rounded-lg cursor-pointer transition-colors ${active ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-200'
+      }`}
     onClick={onClick}
   >
     {icon}
@@ -19,34 +18,34 @@ const Sidebar = ({ activeSection, setActiveSection }) => {
     <div className="w-64 min-h-screen bg-gray-100 p-5 fixed">
       <h2 className="text-xl font-bold text-blue-600 mb-6">SewaSetu</h2>
       <ul className="space-y-4">
-        <SidebarItem 
-          icon={<FaHome />} 
-          text="Dashboard" 
-          active={activeSection === "dashboard"} 
+        <SidebarItem
+          icon={<FaHome />}
+          text="Dashboard"
+          active={activeSection === "dashboard"}
           onClick={() => setActiveSection("dashboard")}
         />
-        <SidebarItem 
-          icon={<FaProjectDiagram />} 
-          text="Projects" 
-          active={activeSection === "projects"} 
+        <SidebarItem
+          icon={<FaProjectDiagram />}
+          text="Projects"
+          active={activeSection === "projects"}
           onClick={() => setActiveSection("projects")}
         />
-        <SidebarItem 
-          icon={<FaUserFriends />} 
-          text="Freelancers" 
-          active={activeSection === "freelancers"} 
+        <SidebarItem
+          icon={<FaUserFriends />}
+          text="Freelancers"
+          active={activeSection === "freelancers"}
           onClick={() => setActiveSection("freelancers")}
         />
-        <SidebarItem 
-          icon={<FaWallet />} 
-          text="Escrow" 
-          active={activeSection === "escrow"} 
+        <SidebarItem
+          icon={<FaWallet />}
+          text="Escrow"
+          active={activeSection === "escrow"}
           onClick={() => setActiveSection("escrow")}
         />
-        <SidebarItem 
-          icon={<FaUser />} 
-          text="Profile" 
-          active={activeSection === "profile"} 
+        <SidebarItem
+          icon={<FaUser />}
+          text="Profile"
+          active={activeSection === "profile"}
           onClick={() => setActiveSection("profile")}
         />
       </ul>
@@ -96,7 +95,7 @@ const CreateProjectForm = ({ onClose }) => {
       <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">Create a New Project</h2>
-          <button 
+          <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"
           >
@@ -229,8 +228,8 @@ const CreateProjectForm = ({ onClose }) => {
                 {skills.map((skill, index) => (
                   <div key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center gap-2">
                     <span>{skill}</span>
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => handleRemoveSkill(index)}
                       className="text-blue-600 hover:text-blue-800"
                     >
@@ -282,7 +281,7 @@ const ProfileSection = () => (
           <p className="text-gray-600">sagar@example.com</p>
         </div>
       </div>
-      
+
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
           <FaEnvelope className="text-gray-600" />
@@ -382,7 +381,7 @@ const Dashboard = () => {
       <div className="flex-1 p-6 bg-gray-50 min-h-screen ml-64">
         <div className="mt-6">
           <div className="space-x-4 mb-6">
-            <button 
+            <button
               onClick={() => setShowCreateProject(true)}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
