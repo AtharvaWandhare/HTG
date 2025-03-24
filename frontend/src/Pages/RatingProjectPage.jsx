@@ -1,5 +1,9 @@
-import { FiMessageCircle, FiZap, FiHome, FiMail, FiMapPin, FiUser } from 'react-icons/fi';
+import { FiMail } from 'react-icons/fi';
 import axios from "axios";
+import EmailPhoto from "./../components/Assets/EmailModulePhoto01.png";
+
+
+
 
 export default function RatingProjectPage() {
   const sendMail = async (e) => {
@@ -8,8 +12,7 @@ export default function RatingProjectPage() {
       const response = await axios.post('/api/v1/users/sendMail',
         {
           email: e.target[0].value,
-          zipCode: e.target[1].value,
-          name: e.target[2].value
+          name: e.target[1].value
         },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -19,68 +22,46 @@ export default function RatingProjectPage() {
       console.error(error);
       alert('Something went wrong. Please try again.');
     }
-  }
+  };
 
-  const steps = [
-    {
-      icon: <FiMessageCircle size={32} />, title: "1. Tell us what your home needs",
-      description: "From routine maintenance and repairs to dream home renovations, we can help with any project big or small.",
-      bgColor: "bg-color1/20", iconColor: "text-color1"
-    },
-    {
-      icon: <FiZap size={32} />, title: "2. We'll match you with personalized solutions",
-      description: "See your price and book services in an instant. Or, request and compare quotes from highly rated pros near you.",
-      bgColor: "bg-stdBlue/20", iconColor: "text-stdBlue"
-    },
-    {
-      icon: <FiHome size={32} />, title: "3. Start to finish, we've got you covered",
-      description: "When you book and pay with SewaSetu, you're covered by our Happiness Guarantee.",
-      bgColor: "bg-color1/20", iconColor: "text-color1"
-    }
-  ];
+  
 
   return (
-    <div className="w-[80vw] mx-auto py-8 md:py-16 px-4 md:px-8">
-      <div className='flex flex-col text-center'>
-        <div className="flex flex-col md:flex-row items-center justify-between w-full gap-6 md:gap-12 mb-10">
-          <div className='text-center md:text-left md:flex-1'>
-            <h1 className="text-2xl md:text-4xl font-bold text-stdBlue leading-tight">
-              Get free project <span className="text-color1 block md:inline"> cost information </span> delivered to your inbox
-            </h1>
-          </div>
-          <div className="w-full md:w-auto md:flex-1">
-            <div className="bg-gray-200 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-              <h2 className="text-xl md:text-2xl text-stdBlue font-bold mb-6 inline-flex items-center gap-2">
-                <FiMail className="text-color1" /> Receive mail
-              </h2>
-              <form onSubmit={sendMail} className="space-y-4">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input className="w-full h-12 rounded-lg pl-10 pr-4 border border-gray-300 outline-none" type="email" placeholder="Email Address" required />
-                  <input className="w-full sm:w-32 h-12 rounded-lg pl-10 pr-4 border border-gray-300 outline-none" type="text" placeholder="Zip Code" required />
-                  <input className="w-full sm:w-32 h-12 rounded-lg pl-10 pr-4 border border-gray-300 outline-none" type="text" placeholder="Name" required />
-                </div>
-                <button type="submit" className="bg-stdBlue text-white px-8 py-3 rounded-full font-bold hover:bg-color1 transition-all duration-300">
-                  <FiMail /> Submit
-                </button>
-              </form>
-            </div>
-          </div>
+    <div className="p-5 w-[1300px] h-[600px] rounded-3xl bg-gray-100 flex flex-col justify-center items-center mt-10">
+      <h2 className='text-stdBlue font-bold text-3xl'>"Unlock All Available Places – We’ll Send You the List!"</h2>
+      <div className="flex flex-col md:flex-row items-center justify-center gap-14 w-full h-full px-10">
+        
+        {/* Left Side - Image */}
+        <div className="w-full md:w-[45%] flex justify-center">
+          <img 
+            src={EmailPhoto} 
+            alt="Email photo" 
+            className="w-[350px] md:w-[450px] transition-transform duration-500 hover:scale-105"
+          />
         </div>
-        <div className="w-full">
-          <h2 className="text-3xl md:text-4xl font-bold text-stdBlue text-center mb-12">How it works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {steps.map((step, index) => (
-              <div key={index} className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="relative w-20 h-20 mx-auto mb-6">
-                  <div className={`absolute inset-0 ${step.bgColor} rounded-full animate-pulse`}></div>
-                  <div className={`relative z-10 flex items-center justify-center ${step.iconColor}`}>{step.icon}</div>
-                </div>
-                <h3 className="text-xl font-bold text-stdBlue group-hover:text-color1">{step.title}</h3>
-                <p className="text-gray-600 group-hover:text-gray-800">{step.description}</p>
+
+        {/* Right Side - Form Box */}
+        <div className="w-full md:w-[55%]">
+          <div className="bg-gray-200 rounded-xl shadow-lg p-10 w-full h-full max-w-xl mx-auto flex flex-col justify-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <h2 className="text-stdBlue flex flex-col items-center gap-2 font-bold text-3xl mb-8">
+              <FiMail className="text-color1 text-4xl " /> Check Your Inbox
+            </h2>
+            <form onSubmit={sendMail} className="space-y-6">
+              <div className="flex flex-col gap-6">
+                <input className="w-full h-14 text-lg rounded-xl px-5 border border-gray-300 outline-none focus:ring-1 focus:ring-stdBlue transition-all" type="email" placeholder="Enter your mail" required />
+                <input className="w-full h-14 text-lg rounded-xl px-5 border border-gray-300 outline-none focus:ring-1 focus:ring-stdBlue transition-all" type="text" placeholder="Enter your name" required />
               </div>
-            ))}
+              <div className='flex items-center justify-center'>
+              <button type="submit" className="bg-stdBlue  text-white py-3 w-[150px]  rounded-full text-xl font-bold flex items-center gap-3 justify-center hover:bg-color1 hover:scale-105 transition-all duration-300 shadow-md ">
+                 Submit
+              </button>
+
+              </div>
+              
+            </form>
           </div>
         </div>
+
       </div>
     </div>
   );

@@ -4,28 +4,28 @@ import { Link } from "react-router-dom";
 const ServiceTypeCard = () => {
   const cards = [
     {
-      title: "Join as a Customer",
-      icon: <FaUser className="text-4xl md:text-5xl text-stdBlue" />,
-      description: "Find skilled professionals for your service needs",
+      title: "Join as a Client",
+      icon: <FaUser className="text-4xl md:text-5xl text-stdBlue" />, 
+      description: "Find top-rated professionals to complete your tasks efficiently.",
       benefits: [
-        "Access to verified professionals",
-        "Easy booking system",
-        "Real-time service tracking",
-        "Fast  service"
+        "Access verified service providers",
+        "Post job requests easily",
+        "Track progress in real-time",
+        "Secure and hassle-free payments"
       ],
       gradient: "from-stdBlue/10 via-stdBlue/5 to-transparent",
       link: "/signlog",
       buttonColor: "bg-stdBlue hover:bg-blue-800"
     },
     {
-      title: "Join as a Professional",
-      icon: <FaUserTie className="text-4xl md:text-5xl text-color1" />,
-      description: "Grow your business with our platform",
+      title: "Join as a Gig Expert",
+      icon: <FaUserTie className="text-4xl md:text-5xl text-color1" />, 
+      description: "Grow your freelancing career with our trusted platform.",
       benefits: [
-        "Expand your client base",
-        "Flexible scheduling",
-        "High-quality service",
-        "Professional profile"
+        "Get access to a wide range of clients",
+        "Flexible work opportunities",
+        "Build a strong professional profile",
+        "Earn securely with guaranteed payments"
       ],
       gradient: "from-color1/10 via-color1/5 to-transparent",
       link: "/signup-w",
@@ -76,7 +76,7 @@ const ServiceTypeCard = () => {
                       animation: 'fadeSlideIn 0.5s ease-out forwards'
                     }}
                   >
-                    <span className="h-2 w-2 rounded-full bg-green-500 
+                    <span className="h-2 w-2 rounded-full bg-blue-500 
                       transition-transform duration-300 hover:scale-125" />
                     {benefit}
                   </li>
@@ -109,4 +109,4 @@ const ServiceTypeCard = () => {
   );
 };
 
-export default ServiceTypeCard; 
+export default ServiceTypeCard;
