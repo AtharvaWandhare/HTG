@@ -28,15 +28,33 @@ const ResumeAnalyzer = () => {
       const formData = new FormData();
       formData.append('resume', file);
 
-      const response = await axios.post('http://localhost:8000/api/resume', formData, {
+      console.log('Sending request to:', 'http://localhost:8000/api/resume/analyze');
+      const response = await axios.post('http://localhost:8000/api/resume/analyze', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
-      setAnalysisResult(response.data);
+      console.log('Response received:', response.data);
+      
+      if (response.data.success) {
+        const resumeData = response.data.data;
+        
+        // Transform data to match expected format in UI
+        setAnalysisResult({
+          skills: resumeData.skills || [],
+          experience: resumeData.experience || [],
+          contact: {
+            email: resumeData.email || '',
+            phone: resumeData.phone || ''
+          }
+        });
+      } else {
+        setError('Failed to analyze resume: ' + (response.data.error || 'Unknown error'));
+      }
 
     } catch (err) {
+      console.error('Error analyzing resume:', err);
       setError(err.response?.data?.error || 'Error analyzing resume');
     } finally {
       setIsProcessing(false);

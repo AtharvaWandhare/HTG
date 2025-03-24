@@ -2,7 +2,6 @@ console.log('App.js is loaded');
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import resumeRoutes from './routes/resumeRoutes.js';
 import { app } from './Socket/socket.js';
 
 // const app = express();
@@ -31,10 +30,11 @@ app.use(cookieParser());
 import userRouter from './routes/user.routes.js';
 import serviceProviderRouter from './routes/serviceProvider.routes.js';
 import jobRoutes from './routes/jobRoutes.js';
+import resumeRoutes from './routes/resumeRoutes.js';
 
 //routes declaration
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/service-providers", serviceProviderRouter);
 app.use('/api/v1/users', jobRoutes);
-app.use('/api/resume', resumeRoutes);
+app.use("/api/resume", resumeRoutes);
 export default app;
