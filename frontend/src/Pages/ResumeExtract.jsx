@@ -28,34 +28,44 @@ const ResumeAnalyzer = () => {
       const formData = new FormData();
       formData.append('resume', file);
 
-      console.log('Sending request to:', 'http://localhost:8000/api/resume/analyze');
+      console.log('Sending resume for analysis:', file.name, file.type);
+      
+      // Log the formData to console for debugging
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value instanceof File ? value.name : value}`);
+      }
+      
       const response = await axios.post('http://localhost:8000/api/resume/analyze', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
-        }
+        },
+        timeout: 60000 // Increased timeout for large files
       });
 
-      console.log('Response received:', response.data);
-      
-      if (response.data.success) {
+      console.log('Resume analysis response:', response.data);
+
+      if (response.data?.success) {
         const resumeData = response.data.data;
-        
-        // Transform data to match expected format in UI
         setAnalysisResult({
           skills: resumeData.skills || [],
           experience: resumeData.experience || [],
-          contact: {
-            email: resumeData.email || '',
-            phone: resumeData.phone || ''
-          }
+          contact: resumeData.contact || { email: '', phone: '' }
         });
       } else {
-        setError('Failed to analyze resume: ' + (response.data.error || 'Unknown error'));
+        setError('Analysis failed: ' + (response.data?.error || 'Unknown error'));
       }
-
     } catch (err) {
       console.error('Error analyzing resume:', err);
-      setError(err.response?.data?.error || 'Error analyzing resume');
+      
+      if (err.code === 'ERR_NETWORK') {
+        setError(`Network error: Could not connect to the server. Please check if the backend is running.`);
+      } else if (err.code === 'ECONNABORTED') {
+        setError(`Request timed out. The file might be too large or the server is busy.`);
+      } else if (err.response) {
+        setError(`Server error ${err.response.status}: ${err.response.data?.error || err.message}`);
+      } else {
+        setError(`Error: ${err.message}`);
+      }
     } finally {
       setIsProcessing(false);
     }
@@ -128,36 +138,24 @@ const ResumeAnalyzer = () => {
             </div>
 
             {/* Skills Section */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {analysisResult.skills.map((skill, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-50 p-4 rounded-lg text-center hover:bg-orange-50 transition-colors"
-                >
-                  <span className="text-gray-900 font-medium">{skill}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Contact Information */}
-            {analysisResult.contact && (
-              <div className="mt-8 pt-6 border-t border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Contact Information</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-gray-600">Email</p>
-                    <p className="font-medium">{analysisResult.contact.email}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-600">Phone</p>
-                    <p className="font-medium">{analysisResult.contact.phone}</p>
-                  </div>
+            {analysisResult.skills.length > 0 && (
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Skills</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {analysisResult.skills.map((skill, index) => (
+                    <div
+                      key={index}
+                      className="bg-gray-50 p-4 rounded-lg text-center hover:bg-orange-50 transition-colors"
+                    >
+                      <span className="text-gray-900 font-medium">{skill}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
 
             {/* Experience Section */}
-            {analysisResult.experience?.length > 0 && (
+            {analysisResult.experience.length > 0 && (
               <div className="mt-8 pt-6 border-t border-gray-100">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Work Experience</h3>
                 <div className="space-y-3">
